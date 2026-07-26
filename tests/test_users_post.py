@@ -1,0 +1,44 @@
+from tests.data import CREATE_USER_PAYLOAD, CREATE_USER_INVALID_NAME_TYPE, CREATE_USER_INVALID_USERNAME_TYPE
+
+
+def test_create_user_returns_created_user(api_client_with_valid_auth):
+    response = api_client_with_valid_auth.post("users", json=CREATE_USER_PAYLOAD)
+    data = response.json()
+
+    assert response.status_code == 201
+    assert data["name"] == CREATE_USER_PAYLOAD["name"]
+    assert data["username"] == CREATE_USER_PAYLOAD["username"]
+    assert isinstance(data["id"], int)
+
+
+def test_create_user_without_authorization_returns_401(api_client_without_auth):
+    response = api_client_without_auth.post("users", json=CREATE_USER_PAYLOAD)
+    data = response.json()
+
+    assert response.status_code == 401
+    assert data["detail"] == "Unauthorized"
+
+
+def test_create_user_with_invalid_authorization_returns_401(api_client_with_invalid_auth):
+    response = api_client_with_invalid_auth.post("users", json=CREATE_USER_PAYLOAD)
+    data = response.json()
+
+    assert response.status_code == 401
+    assert data["detail"] == "Unauthorized"
+
+
+def test_create_user_with_invalid_name_type_returns_422(api_client_with_valid_auth):
+    response = api_client_with_valid_auth.post("users", json=CREATE_USER_INVALID_NAME_TYPE)
+    data = response.json()
+
+    assert response.status_code == 422
+    assert data["detail"][0]["loc"] == ["body", "name"]
+
+
+def test_create_user_with_invalid_username_type_returns_422(api_client_with_valid_auth):
+    response = api_client_with_valid_auth.post("users", json=CREATE_USER_INVALID_USERNAME_TYPE)
+    data = response.json()
+
+    assert response.status_code == 422
+    assert data["detail"][0]["loc"] == ["body", "username"]
+
