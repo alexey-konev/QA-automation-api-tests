@@ -11,6 +11,14 @@ def test_create_user_returns_created_user(api_client_with_valid_auth):
     assert isinstance(data["id"], int)
 
 
+def test_created_user_exists(api_client_with_valid_auth, create_new_user):
+    user = create_new_user
+
+    response = api_client_with_valid_auth.get(f"users/{user["id"]}")
+
+    assert response.status_code == 200
+
+
 def test_create_user_without_authorization_returns_401(api_client_without_auth):
     response = api_client_without_auth.post("users", json=CREATE_USER_PAYLOAD)
     data = response.json()
