@@ -49,3 +49,6 @@ class ApiClient:
             url=f"{self.base_url}/{endpoint}",
             timeout=self.timeout
         )
+
+    def close(self):
+        self.session.close()
