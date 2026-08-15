@@ -1,6 +1,7 @@
 import pytest
 
 from clients.api_client import ApiClient
+from clients.db_client import DatabaseClient
 from tests.data import URL, ACCESS_TOKEN, CREATE_USER_PAYLOAD
 
 
@@ -50,6 +51,20 @@ def create_new_user(api_client_with_valid_auth):
         )
 
 
+#database
+@pytest.fixture(scope="module")
+def db_client():
+    db_client = DatabaseClient()
 
+    yield db_client
 
+    db_client.close()
 
+@pytest.fixture()
+def db_created_user(db_client):
+    user = db_client.create_user("New User", "new@new.new")
+
+    yield user
+
+    if db_client.get_user_by_email(user["email"]):
+        db_client.delete_user(user["id"])
