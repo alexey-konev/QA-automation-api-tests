@@ -42,7 +42,7 @@ def create_user(user: UserCreate, authorization: str = Depends(api_key_header)):
     else:
         new_id = max(existing_user["id"] for existing_user in users) + 1
 
-    new_user = UserResponse(id=new_id, name=user.name, username=user.username)
+    new_user = UserResponse(id=new_id, name=user.name, email=user.email)
     users.append(new_user.model_dump())
 
     return new_user
@@ -58,7 +58,7 @@ def replace_user(user_id: int, user: UserCreate, authorization: str = Depends(ap
             updated_user = UserResponse(
                 id=user_id,
                 name=user.name,
-                username=user.username)
+                email=user.email)
             users[index] = updated_user.model_dump()
             return updated_user
 

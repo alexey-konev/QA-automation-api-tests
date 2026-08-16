@@ -15,7 +15,7 @@ def test_get_users_returns_list(get_users_response):
     [
         ("id", int),
         ("name", str),
-        ("username", str)
+        ("email", str)
     ]
 )
 def test_get_users_returns_valid_user_structure(field, field_type, get_users_response):

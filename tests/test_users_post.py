@@ -1,4 +1,4 @@
-from tests.data import CREATE_USER_PAYLOAD, CREATE_USER_INVALID_NAME_TYPE, CREATE_USER_INVALID_USERNAME_TYPE
+from tests.data import CREATE_USER_PAYLOAD, CREATE_USER_INVALID_NAME_TYPE, CREATE_USER_INVALID_EMAIL_TYPE
 
 
 def test_create_user_returns_created_user(api_client_with_valid_auth):
@@ -7,7 +7,7 @@ def test_create_user_returns_created_user(api_client_with_valid_auth):
 
     assert response.status_code == 201
     assert data["name"] == CREATE_USER_PAYLOAD["name"]
-    assert data["username"] == CREATE_USER_PAYLOAD["username"]
+    assert data["email"] == CREATE_USER_PAYLOAD["email"]
     assert isinstance(data["id"], int)
 
 
@@ -43,10 +43,10 @@ def test_create_user_with_invalid_name_type_returns_422(api_client_with_valid_au
     assert data["detail"][0]["loc"] == ["body", "name"]
 
 
-def test_create_user_with_invalid_username_type_returns_422(api_client_with_valid_auth):
-    response = api_client_with_valid_auth.post("users", json=CREATE_USER_INVALID_USERNAME_TYPE)
+def test_create_user_with_invalid_email_type_returns_422(api_client_with_valid_auth):
+    response = api_client_with_valid_auth.post("users", json=CREATE_USER_INVALID_EMAIL_TYPE)
     data = response.json()
 
     assert response.status_code == 422
-    assert data["detail"][0]["loc"] == ["body", "username"]
+    assert data["detail"][0]["loc"] == ["body", "email"]
 
