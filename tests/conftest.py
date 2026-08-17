@@ -66,5 +66,5 @@ def db_created_user(db_client):
 
     yield user
 
-    if db_client.get_user_by_email(user["email"]):
+    if db_client.get_user_by_id(user["id"]):
         db_client.delete_user(user["id"])

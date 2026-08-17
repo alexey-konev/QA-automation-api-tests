@@ -27,16 +27,18 @@ def test_get_users_returns_valid_user_structure(field, field_type, get_users_res
 
 
 # /users/{id}
-def test_get_existing_user_returns_correct_user(get_existing_user_response):
-    response = get_existing_user_response
+def test_get_existing_user_returns_correct_user(api_client_without_auth, db_created_user):
+    user_id = db_created_user["id"]
+
+    response = api_client_without_auth.get(f"users/{user_id}")
     user = response.json()
 
     assert response.status_code == 200
-    assert user["id"] == 1
+    assert user == db_created_user
 
 
 def test_get_nonexistent_user_by_id_returns_404(api_client_without_auth):
-    response = api_client_without_auth.get("users/1234")
+    response = api_client_without_auth.get("users/1234567")
     data = response.json()
 
     assert response.status_code == 404
