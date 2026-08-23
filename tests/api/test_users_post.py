@@ -1,7 +1,7 @@
 from tests.data import CREATE_USER_PAYLOAD, CREATE_USER_INVALID_NAME_TYPE, CREATE_USER_INVALID_EMAIL_TYPE
 
 
-def test_create_user_persists_user_in_db(api_client_with_valid_auth, db_client):
+def test_create_user_success(api_client_with_valid_auth, db_client):
     response = api_client_with_valid_auth.post("users", json=CREATE_USER_PAYLOAD)
     data = response.json()
 

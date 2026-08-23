@@ -2,7 +2,7 @@ from tests.data import UPDATE_USER_PAYLOAD, UPDATE_USER_INVALID_NAME_TYPE, UPDAT
     UPDATE_USER_PARTIAL_PAYLOAD_NAME
 
 
-def test_replace_user_updates_api_and_db(api_client_with_valid_auth, db_client, db_created_user):
+def test_replace_user_success(api_client_with_valid_auth, db_client, db_created_user):
     user_id = db_created_user["id"]
 
     response = api_client_with_valid_auth.put(f"users/{user_id}", json=UPDATE_USER_PAYLOAD)

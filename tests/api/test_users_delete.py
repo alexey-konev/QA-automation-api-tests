@@ -1,6 +1,6 @@
 
 
-def test_delete_user_removes_user_from_api_and_db(api_client_with_valid_auth, db_client, db_created_user):
+def test_delete_user_success(api_client_with_valid_auth, db_client, db_created_user):
     user_id = db_created_user["id"]
 
     response_delete = api_client_with_valid_auth.delete(f"users/{user_id}")
