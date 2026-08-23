@@ -68,3 +68,13 @@ def db_created_user(db_client):
 
     if db_client.get_user_by_id(user["id"]):
         db_client.delete_user(user["id"])
+
+#hooks
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    report = outcome.get_result()
+
+    if report.when == "call":
+        print(f"{item.name} -> {report.outcome}")
+
