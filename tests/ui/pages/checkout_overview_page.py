@@ -12,6 +12,11 @@ class CheckoutOverviewPage:
     def open(self):
         self.page.goto("https://www.saucedemo.com/checkout-step-two.html")
 
+    def get_product_card(self, product_name):
+        card = self.page.locator(".cart_item").filter(has=self.page.get_by_text(product_name))
+
+        return card
+
     def finish_checkout(self):
         self.finish_button.click()
 
