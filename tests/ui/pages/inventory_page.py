@@ -1,14 +1,15 @@
 from tests.ui.components.header import Header
+from tests.ui.pages.base_page import BasePage
 from tests.ui.pages.cart_page import CartPage
 
 
-class InventoryPage:
-    def __init__(self, page):
-        self.page = page
-        self.header = Header(page)
+class InventoryPage(BasePage):
+    path = "/inventory.html"
 
-    def open(self):
-        self.page.goto("https://www.saucedemo.com/inventory.html")
+    def __init__(self, page):
+        super().__init__(page)
+
+        self.header = Header(self.page)
 
     def get_product_card(self, product_name):
         card = self.page.locator(".inventory_item").filter(has=self.page.get_by_text(product_name))
