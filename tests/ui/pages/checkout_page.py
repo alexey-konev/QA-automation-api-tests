@@ -15,9 +15,6 @@ class CheckoutPage(BasePage):
         self.postal_code_input = self.page.locator("#postal-code")
         self.continue_button = self.page.locator("#continue")
 
-    def open(self):
-        self.page.goto()
-
     def fill_customer_info(self, first_name, last_name, postal_code):
         self.first_name_input.fill(first_name)
         self.last_name_input.fill(last_name)

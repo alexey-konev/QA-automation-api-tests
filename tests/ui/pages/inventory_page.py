@@ -10,6 +10,7 @@ class InventoryPage(BasePage):
         super().__init__(page)
 
         self.header = Header(self.page)
+        self.title = self.page.locator("[data-test='title']")
 
     def get_product_card(self, product_name):
         card = self.page.locator(".inventory_item").filter(has=self.page.get_by_text(product_name))

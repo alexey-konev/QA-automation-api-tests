@@ -1,14 +1,17 @@
 from playwright.sync_api import expect
 
+from tests.ui.config import BASE_URL
+from tests.ui.data.users import STANDARD_USER
+
 
 def test_successful_login(login_page):
 
     login_page.open()
-    login_page.login("standard_user", "secret_sauce")
+    inventory_page = login_page.login(STANDARD_USER["login"], STANDARD_USER["password"])
 
-    expect(login_page.page).to_have_url("https://www.saucedemo.com/inventory.html")
+    expect(inventory_page.page).to_have_url(f"{BASE_URL}/inventory.html")
 
-    title = login_page.page.locator("[data-test='title']")
+    title = inventory_page.title
     expect(title).to_be_visible()
     expect(title).to_have_text("Products")
 
