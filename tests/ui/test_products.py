@@ -1,6 +1,5 @@
 from playwright.sync_api import expect
 
-from tests.ui.config import BASE_URL
 from tests.ui.data.customers import VALID_CUSTOMER
 from tests.ui.data.products import PRODUCTS
 from tests.ui.data.users import STANDARD_USER
@@ -57,7 +56,7 @@ def test_remove_one_out_of_two_products_from_cart(inventory_page):
     expect(cart_page.header.cart_badge).to_have_text("1")
 
 
-def test_successful_purchase(login_page):
+def test_successful_purchase(login_page, base_url):
     login_page.open()
 
     inventory_page = login_page.login(STANDARD_USER["login"], STANDARD_USER["password"])
@@ -74,6 +73,6 @@ def test_successful_purchase(login_page):
     expect(checkout_overview_page.get_product_card(PRODUCTS["backpack"])).to_be_visible()
 
     order_complete_page = checkout_overview_page.finish_checkout()
-    expect(order_complete_page.page).to_have_url(f"{BASE_URL}/checkout-complete.html")
+    expect(order_complete_page.page).to_have_url(f"{base_url}/checkout-complete.html")
     expect(order_complete_page.complete_message).to_be_visible()
 

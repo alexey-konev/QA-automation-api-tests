@@ -1,1 +1,3 @@
-BASE_URL = "https://www.saucedemo.com"
+ENVIRONMENTS = {
+    "default": "https://www.saucedemo.com"
+}
