@@ -4,6 +4,7 @@ from playwright.sync_api import expect
 from tests.ui.config import ENVIRONMENTS
 from tests.ui.pages.inventory_page import InventoryPage
 from tests.ui.pages.login_page import LoginPage
+from tests.ui.config import username, password
 
 
 #env
@@ -37,7 +38,7 @@ def auth_state(browser, base_url):
     login_page = LoginPage(page)
 
     login_page.open()
-    login_page.login("standard_user", "secret_sauce")
+    login_page.login(username, password)
 
     expect(page).to_have_url(f"{base_url}/inventory.html")
 
