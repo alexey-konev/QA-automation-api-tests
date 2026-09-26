@@ -2,6 +2,7 @@ name: UI tests
 
 on:
   push:
+  workflow_dispatch:
 
 jobs:
   test:
@@ -10,7 +11,7 @@ jobs:
     env:
       TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
       TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
-      
+
     steps:
       - uses: actions/checkout@v4
 
