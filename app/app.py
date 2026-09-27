@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.security import APIKeyHeader
 
-from app.data import users
+# from app.data import users
 from app.schemas import UserCreate, UserResponse, UserUpdate
 from app.services import check_authorization
 from clients.db_client import DatabaseClient
@@ -25,8 +25,8 @@ def root():
 
 
 @app.get("/users")
-def get_users():
-    return users
+def get_users(db_client: DatabaseClient = Depends(get_db_client)):
+    return db_client.get_users()
 
 
 @app.get("/users/{user_id}")

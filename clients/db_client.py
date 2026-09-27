@@ -21,6 +21,16 @@ class DatabaseClient:
 
         self.cursor = self.connection.cursor()
 
+    def get_users(self):
+        self.cursor.execute(
+            """
+            SELECT id, name, email
+            FROM users
+            """
+        )
+
+        return self.cursor.fetchall()
+
     def get_user_by_id(self, user_id):
         self.cursor.execute(
             """
