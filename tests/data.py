@@ -1,5 +1,3 @@
-URL = "http://localhost:8000"
-
 ACCESS_TOKEN = "secret-token"
 
 

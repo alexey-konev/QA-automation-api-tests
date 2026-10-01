@@ -1,14 +1,15 @@
+import os
 import psycopg
 from psycopg.rows import dict_row
 
 class DatabaseClient:
 
-    def __init__(self, host="localhost", port=5432, dbname="qa_api_db", user="postgres", password="postgres"):
-        self.host = host
-        self.port = port
-        self.dbname = dbname
-        self.user = user
-        self.password = password
+    def __init__(self):
+        self.host = os.getenv("DB_HOST", "localhost")
+        self.port = int(os.getenv("DB_PORT", 5432))
+        self.dbname = os.getenv("DB_NAME", "qa_api_db")
+        self.user = os.getenv("DB_USER", "postgres")
+        self.password = os.getenv("DB_PASSWORD", "postgres")
 
         self.connection = psycopg.connect(
             host=self.host,

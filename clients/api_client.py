@@ -1,10 +1,12 @@
+import os
+
 import requests
 
 
 class ApiClient:
 
-    def __init__(self, base_url, token=None, timeout=5):
-        self.base_url = base_url
+    def __init__(self, token=None, timeout=5):
+        self.base_url = os.getenv("API_BASE_URL", "http://localhost:8000")
         self.timeout = timeout
         self.session = requests.Session()
 
