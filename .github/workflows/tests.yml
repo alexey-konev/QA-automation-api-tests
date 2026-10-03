@@ -4,6 +4,11 @@ on:
   push:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   ui-tests:
     runs-on: ubuntu-latest
@@ -111,6 +116,18 @@ jobs:
         run: |
           npm install -g allure
           allure generate allure-results -o allure-report
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: allure-report
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
       - name: Upload Allure report
         if: always()
