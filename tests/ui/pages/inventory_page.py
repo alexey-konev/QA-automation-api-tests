@@ -1,3 +1,5 @@
+import allure
+
 from tests.ui.components.header import Header
 from tests.ui.pages.base_page import BasePage
 from tests.ui.pages.cart_page import CartPage
@@ -17,11 +19,13 @@ class InventoryPage(BasePage):
 
         return card
 
+    @allure.step("Add product '{product_name}' to the cart")
     def add_product(self, product_name):
         card = self.get_product_card(product_name)
 
         card.get_by_role("button", name="Add to cart").click()
 
+    @allure.step("Open cart")
     def open_cart(self):
         self.header.open_cart()
 

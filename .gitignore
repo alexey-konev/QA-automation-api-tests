@@ -5,3 +5,4 @@ __pycache__/
 playground.py
 auth.json
 .env
+allure-results/

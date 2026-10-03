@@ -71,10 +71,9 @@ def db_created_user(db_client):
 
 #hooks
 @pytest.hookimpl(hookwrapper=True)
-def pytest_runtest_makereport(item, call):
+def pytest_runtest_makereport(item):
     outcome = yield
     report = outcome.get_result()
 
     if report.when == "call":
         print(f"{item.name} -> {report.outcome}")
-
