@@ -1,5 +1,5 @@
 VALID_CUSTOMER = {
     "firstname": "Name",
     "lastname": "Lastname",
-    "code": "Code123"
+    "postal_code": "Code123"
 }

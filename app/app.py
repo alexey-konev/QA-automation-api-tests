@@ -1,8 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.security import APIKeyHeader
 
-# from app.data import users
-from app.schemas import UserCreate, UserResponse, UserUpdate
+from app.schemas import UserCreate, UserUpdate
 from app.services import check_authorization
 from clients.db_client import DatabaseClient
 

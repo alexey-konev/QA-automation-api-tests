@@ -22,13 +22,13 @@ services:
   postgres:
     image: postgres:16
     environment:
-      DB_NAME: qa_api_db
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: qa_api_db
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres -d qa_api_db" ]
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER} -d qa_api_db" ]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -37,6 +37,7 @@ services:
     build: .
     environment:
       API_BASE_URL: http://api:8000
+      API_ACCESS_TOKEN: ${API_ACCESS_TOKEN}
       DB_HOST: postgres
       DB_PORT: 5432
       DB_NAME: qa_api_db

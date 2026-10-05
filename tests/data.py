@@ -1,6 +1,3 @@
-ACCESS_TOKEN = "secret-token"
-
-
 CREATE_USER_PAYLOAD = {
     "name": "New User",
     "email": "new_user123"

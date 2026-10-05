@@ -1,22 +1,29 @@
+import os
 import pytest
 
 from clients.api_client import ApiClient
 from clients.db_client import DatabaseClient
-from tests.data import ACCESS_TOKEN, CREATE_USER_PAYLOAD
+from tests.data import CREATE_USER_PAYLOAD
 
 
 # api_clients
 @pytest.fixture(scope="module")
 def api_client_without_auth():
-    return ApiClient()
+    api_client = ApiClient()
+    yield api_client
+    api_client.close()
 
 @pytest.fixture(scope="module")
 def api_client_with_valid_auth():
-    return ApiClient(token=ACCESS_TOKEN)
+    api_client = ApiClient(token=os.getenv("API_ACCESS_TOKEN"))
+    yield api_client
+    api_client.close()
 
 @pytest.fixture(scope="module")
 def api_client_with_invalid_auth():
-    return ApiClient(token="wrong-token")
+    api_client = ApiClient(token="wrong-token")
+    yield api_client
+    api_client.close()
 
 
 # get users

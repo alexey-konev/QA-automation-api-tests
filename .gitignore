@@ -3,6 +3,5 @@ __pycache__/
 .idea/
 *.pyc
 playground.py
-auth.json
 .env
 allure-results/

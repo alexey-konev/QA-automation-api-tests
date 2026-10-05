@@ -75,7 +75,7 @@ def test_successful_purchase(login_page, base_url):
 
     with allure.step("Complete checkout"):
         checkout_page = cart_page.start_checkout()
-        checkout_page.fill_customer_info(VALID_CUSTOMER["firstname"], VALID_CUSTOMER["lastname"], VALID_CUSTOMER["code"])
+        checkout_page.fill_customer_info(VALID_CUSTOMER["firstname"], VALID_CUSTOMER["lastname"], VALID_CUSTOMER["postal_code"])
 
         checkout_overview_page = checkout_page.continue_checkout()
         expect(checkout_overview_page.get_product_card(PRODUCTS["backpack"])).to_be_visible()
